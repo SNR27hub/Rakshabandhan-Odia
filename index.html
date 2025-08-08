@@ -11,7 +11,8 @@
       font-family: 'Noto Sans Oriya', sans-serif;
       text-align: center;
       margin: 0;
-      padding: 20px 20px 80px 20px; /* Space for the ad at the bottom */
+      /* Removed extra padding for ad, reverted to standard padding */
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -80,18 +81,8 @@
     .share-buttons a { margin: 0 12px; display: inline-block; transition: transform 0.3s ease; }
     .share-buttons a:hover { transform: scale(1.2); }
     .share-buttons img { width: 45px; height: 45px; }
-    
-    /* Advertisement container style */
-    .ad-container {
-        position: fixed; 
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        z-index: 100; 
-        text-align: center;
-        background-color: rgba(255,255,255,0.1); 
-        padding: 5px 0;
-    }
+
+    /* Removed .ad-container styles as it's no longer needed */
 
     @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     @keyframes textGlow { from { text-shadow: 0 0 10px #fff, 0 0 20px #ff9a9e, 0 0 30px #d1005d; } to { text-shadow: 0 0 20px #fff, 0 0 30px #ff9a9e, 0 0 40px #d1005d; } }
@@ -108,7 +99,7 @@
   </div>
 
   <div id="particle-container"></div>
-  
+
   <div class="container">
     <h1>🎀 ରକ୍ଷା ବନ୍ଧନ ଶୁଭେଚ୍ଛା 🎀</h1>
     <p>ତୁମର ନାଁ ଲେଖ |</p>
@@ -132,19 +123,6 @@
     </div>
   </div>
 
-  <div class="ad-container">
-    <script type="text/javascript">
-        atOptions = {
-            'key' : '773726a76a11cd590edeaf4167fc2fa2',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/773726a76a11cd590edeaf4167fc2fa2/invoke.js"></script>
-  </div>
-
 
   <script>
     function getQueryParam(param) {
@@ -160,26 +138,26 @@
         alert("ଦୟାକରି ତୁମ ନାଁ ଲେଖ |");
         return;
       }
-      
+
       const message = `💖 ${sender} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊`;
       const resultDiv = document.getElementById("result");
       resultDiv.innerText = message;
       resultDiv.classList.add("visible");
-      
+
       // Unmute and play audio after user interaction
       const backgroundMusic = document.getElementById('backgroundMusic');
       backgroundMusic.muted = false;
       backgroundMusic.play();
 
       const shareDiv = document.getElementById("shareButtons");
-      
+
       // Construct the new URL with the sender's name as a query parameter
       const shareableUrl = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(sender)}`;
-      
+
       const encodedMessage = encodeURIComponent(message + `\n\nCreate your own Rakhi wishes here: ${shareableUrl}`);
       const whatsappURL = "https://wa.me/?text=" + encodedMessage;
       const facebookURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareableUrl) + "&quote=" + encodeURIComponent(message);
-      
+
       document.getElementById("whatsappBtn").href = whatsappURL;
       document.getElementById("facebookBtn").href = facebookURL;
       document.getElementById("instagramBtn").href = "https://www.instagram.com/"; // Instagram does not support direct text sharing via URL
@@ -212,7 +190,7 @@
             // Change the input prompt and make it visible for the new sender
             const senderParagraph = document.querySelector('p');
             senderParagraph.innerText = "ତୁମେ ବି ଶୁଭେଚ୍ଛା ପଠାଇବାକୁ ଚାହୁଁଛ? ତୁମର ନାଁ ଲେଖ |";
-            
+
             const message = `💖 ${urlSenderName} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊`;
             resultDiv.innerText = message;
             resultDiv.classList.add("visible");
@@ -225,13 +203,13 @@
             // Prepare share buttons for the current page (allowing new sender to fill)
             const shareDiv = document.getElementById("shareButtons");
             const pageUrl = window.location.origin + window.location.pathname; // Base URL
-            
+
             // The message for sharing will be generic, encouraging creation
             const currentMessage = `ରକ୍ଷା ବନ୍ଧନର ଶୁଭେଚ୍ଛା! ଏଠାରୁ ତୁମର ନିଜର ଶୁଭେଚ୍ଛା ସୃଷ୍ଟି କର: ${pageUrl}`;
 
             const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(currentMessage);
             const facebookURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&quote=" + encodeURIComponent(currentMessage);
-            
+
             document.getElementById("whatsappBtn").href = whatsappURL;
             document.getElementById("facebookBtn").href = facebookURL;
             document.getElementById("instagramBtn").href = "https://www.instagram.com/";
