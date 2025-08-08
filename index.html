@@ -2,7 +2,7 @@
 <html lang="or">
 <head>
   <meta charset="UTF-8">
-  <title>ରକ୍ଷା ବନ୍ଧନ ଶୁଭେଚ୍ଛା | Rakhi Greetings</title>
+  <title>ରକ୍ଷା ବନ୍ଧନ ଶୁଭେଚ୍ଛା</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&display=swap');
@@ -11,7 +11,7 @@
       font-family: 'Noto Sans Oriya', sans-serif;
       text-align: center;
       margin: 0;
-      padding: 20px 20px 80px 20px; 
+      padding: 20px 20px 80px 20px; /* Space for the ad at the bottom */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,6 +20,7 @@
       background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
+      position: relative; /* For particle positioning */
     }
 
     .container {
@@ -60,18 +61,10 @@
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
       color: #c81d6f;
       animation: textGlow 2s ease-in-out infinite alternate;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      font-size: 20px;
-      color: #5b2c6f;
-      margin-top: 0;
-      margin-bottom: 20px;
     }
 
     p { color: #5b5b5b; font-size: 16px; }
@@ -79,7 +72,7 @@
     input:focus { border-color: #d1005d; box-shadow: 0 0 8px rgba(209, 0, 93, 0.3); outline: none; }
     button { padding: 12px 25px; background-color: #d1005d; color: white; border: none; border-radius: 25px; cursor: pointer; margin-top: 10px; font-size: 16px; font-weight: bold; transition: all 0.3s ease; }
     button:hover { background-color: #a8004a; transform: scale(1.05); box-shadow: 0 5px 15px rgba(209, 0, 93, 0.4); }
-    .greeting { font-size: 18px; margin-top: 25px; color: #800040; font-weight: bold; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; word-wrap: break-word; }
+    .greeting { font-size: 22px; margin-top: 25px; color: #800040; font-weight: bold; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; word-wrap: break-word; }
     .greeting.visible { opacity: 1; transform: translateY(0); }
     video { width: 100%; max-width: 360px; border-radius: 15px; margin-top: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
     .share-buttons { margin-top: 20px; opacity: 0; transition: opacity 0.5s ease 0.3s; }
@@ -88,14 +81,15 @@
     .share-buttons a:hover { transform: scale(1.2); }
     .share-buttons img { width: 45px; height: 45px; }
     
+    /* Advertisement container style */
     .ad-container {
-        position: fixed;
+        position: fixed; 
         bottom: 0;
         left: 0;
         width: 100%;
-        z-index: 100;
+        z-index: 100; 
         text-align: center;
-        background-color: rgba(255,255,255,0.1);
+        background-color: rgba(255,255,255,0.1); 
         padding: 5px 0;
     }
 
@@ -104,16 +98,12 @@
 
     .particle { position: fixed; bottom: -20px; opacity: 0; animation: rise 10s linear infinite; z-index: 1; }
     @keyframes rise { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; } }
-    
-    #backgroundAudio {
-      display: none;
-    }
   </style>
 </head>
 <body>
 
   <div class="developer-credit">
-    <img src="developer-photo.jpg" alt="Developer">
+    <img src="assets/developer-photo.jpg" alt="Developer">
     <span>Developer SNR</span>
   </div>
 
@@ -121,26 +111,21 @@
   
   <div class="container">
     <h1>🎀 ରକ୍ଷା ବନ୍ଧନ ଶୁଭେଚ୍ଛା 🎀</h1>
-    <h2>Happy Rakshabandhan Greetings</h2>
-    
-    <p>ତୁମର ନାଁ ଲେଖ |<br>Enter your name:</p>
-    <input type="text" id="senderName" placeholder="ନାମ / Name...">
-    
+    <p>ତୁମର ନାଁ ଲେଖ |</p>
+    <input type="text" id="senderName" placeholder="ତୁମର ନାଁ...">
     <br>
-    <button onclick="generateGreeting()">ଶୁଭେଚ୍ଛା ପଠାଅ / Send Greetings</button>
+    <button onclick="generateGreeting()">ଶୁଭେଚ୍ଛା ପଠାଅ</button>
     <div class="greeting" id="result"></div>
-    
     <video autoplay muted loop playsinline>
-      <source src="rakhi-video.mp4" type="video/mp4">
-      ଭିଡିଓ ଲୋଡ୍ ହେଉନି | Video not supported
+      <source src="assets/rakhi-video.mp4" type="video/mp4">
+      ଭିଡିଓ ଲୋଡ୍ ହେଉନି |
     </video>
-    
-    <audio id="backgroundAudio" autoplay loop>
-      <source src="rakhi-song.mp3" type="audio/mpeg">
+    <audio id="backgroundMusic" autoplay loop muted>
+      <source src="assets/rakhi-song.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
-    
     <div class="share-buttons" id="shareButtons" style="display: none;">
-      <p>ସେୟାର କର / Share:</p>
+      <p>ସେୟାର କର:</p>
       <a id="whatsappBtn" target="_blank"><img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp"></a>
       <a id="facebookBtn" target="_blank"><img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook"></a>
       <a id="instagramBtn" target="_blank"><img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="Instagram"></a>
@@ -160,43 +145,47 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/773726a76a11cd590edeaf4167fc2fa2/invoke.js"></script>
   </div>
 
+
   <script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
     function generateGreeting() {
-      const sender = document.getElementById('senderName').value.trim();
+      const senderInput = document.getElementById('senderName');
+      const sender = senderInput.value.trim();
+
       if (sender === "") {
-        alert("ଦୟାକରି ତୁମ ନାଁ ଲେଖ |\nPlease enter your name.");
+        alert("ଦୟାକରି ତୁମ ନାଁ ଲେଖ |");
         return;
       }
       
-      const message = `💖 ${sender} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊\n\n💖 Warm Rakshabandhan greetings from ${sender}! 🎊`;
-      
+      const message = `💖 ${sender} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊`;
       const resultDiv = document.getElementById("result");
       resultDiv.innerText = message;
       resultDiv.classList.add("visible");
       
+      // Unmute and play audio after user interaction
+      const backgroundMusic = document.getElementById('backgroundMusic');
+      backgroundMusic.muted = false;
+      backgroundMusic.play();
+
       const shareDiv = document.getElementById("shareButtons");
-      const pageUrl = window.location.href;
-      const shareLink = `${pageUrl}?sender=${encodeURIComponent(sender)}`;
       
-      // Simplified WhatsApp message
-      const whatsappMessage = `ନିଜର ନାଁ ଲେଖି ଶୁଭେଚ୍ଛା ପାଇଁ ଏହି ଲିଙ୍କ୍ କ୍ଲିକ୍ କରନ୍ତୁ:\n${shareLink}`;
+      // Construct the new URL with the sender's name as a query parameter
+      const shareableUrl = `${window.location.origin}${window.location.pathname}?sender=${encodeURIComponent(sender)}`;
       
-      document.getElementById("whatsappBtn").href = "https://wa.me/?text=" + encodeURIComponent(whatsappMessage);
-      document.getElementById("facebookBtn").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareLink);
-      document.getElementById("instagramBtn").href = "https://www.instagram.com/";
+      const encodedMessage = encodeURIComponent(message + `\n\nCreate your own Rakhi wishes here: ${shareableUrl}`);
+      const whatsappURL = "https://wa.me/?text=" + encodedMessage;
+      const facebookURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareableUrl) + "&quote=" + encodeURIComponent(message);
       
+      document.getElementById("whatsappBtn").href = whatsappURL;
+      document.getElementById("facebookBtn").href = facebookURL;
+      document.getElementById("instagramBtn").href = "https://www.instagram.com/"; // Instagram does not support direct text sharing via URL
+
       shareDiv.style.display = "block";
       setTimeout(() => shareDiv.classList.add("visible"), 10);
-    }
-
-    function checkUrlParams() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const sender = urlParams.get('sender');
-      
-      if (sender) {
-        document.getElementById('senderName').value = sender;
-        generateGreeting();
-      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -214,26 +203,52 @@
             particle.style.animationDelay = `${Math.random() * 7}s`;
             particleContainer.appendChild(particle);
         }
-        
-        const audio = document.getElementById('backgroundAudio');
-        const playAudio = () => {
-            audio.volume = 0.5;
-            const promise = audio.play();
+
+        // Check for sender name in URL on page load
+        const urlSenderName = getQueryParam('sender');
+        if (urlSenderName) {
+            const resultDiv = document.getElementById("result");
+            const senderInput = document.getElementById('senderName');
+            senderInput.style.display = 'none'; // Hide the input field if a sender is already in the URL
+            const generateButton = document.querySelector('button');
+            generateButton.style.display = 'none'; // Hide the button as well
+
+            const message = `💖 ${urlSenderName} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊`;
+            resultDiv.innerText = message;
+            resultDiv.classList.add("visible");
+
+            // Display "ତୁମର ନାଁ ଲେଖ" and input field for the new sender to use
+            const senderParagraph = document.querySelector('p');
+            senderParagraph.innerText = "ତୁମେ ବି ଶୁଭେଚ୍ଛା ପଠାଇବାକୁ ଚାହୁଁଛ? ତୁମର ନାଁ ଲେଖ |";
+            senderInput.style.display = 'block'; // Make it visible again for the new sender
+            generateButton.style.display = 'block'; // Make the button visible again
+
+            // Unmute and play audio on page load if sender name is present
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            backgroundMusic.muted = false;
+            backgroundMusic.play();
+
+
+            // Prepare share buttons for the current page (without specific sender, allowing new sender to fill)
+            const shareDiv = document.getElementById("shareButtons");
+            const pageUrl = window.location.origin + window.location.pathname; // Base URL
             
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    console.log("Audio autoplay was prevented:", error);
-                });
-            }
-        };
-        
-        document.body.addEventListener('click', () => {
-            playAudio();
-        }, { once: true });
-        
-        playAudio();
-        checkUrlParams();
+            // The message for sharing will still be dynamic based on who is sharing
+            const currentMessage = `ରକ୍ଷା ବନ୍ଧନର ଶୁଭେଚ୍ଛା! ଏଠାରୁ ତୁମର ନିଜର ଶୁଭେଚ୍ଛା ସୃଷ୍ଟି କର: ${pageUrl}`;
+
+            const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(currentMessage);
+            const facebookURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&quote=" + encodeURIComponent(currentMessage);
+            
+            document.getElementById("whatsappBtn").href = whatsappURL;
+            document.getElementById("facebookBtn").href = facebookURL;
+            document.getElementById("instagramBtn").href = "https://www.instagram.com/";
+            
+            shareDiv.style.display = "block";
+            setTimeout(() => shareDiv.classList.add("visible"), 10);
+
+        }
     });
   </script>
+
 </body>
 </html>
