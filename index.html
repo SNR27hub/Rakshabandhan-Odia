@@ -209,31 +209,24 @@
         if (urlSenderName) {
             const resultDiv = document.getElementById("result");
             const senderInput = document.getElementById('senderName');
-            senderInput.style.display = 'none'; // Hide the input field if a sender is already in the URL
-            const generateButton = document.querySelector('button');
-            generateButton.style.display = 'none'; // Hide the button as well
-
+            // Change the input prompt and make it visible for the new sender
+            const senderParagraph = document.querySelector('p');
+            senderParagraph.innerText = "ତୁମେ ବି ଶୁଭେଚ୍ଛା ପଠାଇବାକୁ ଚାହୁଁଛ? ତୁମର ନାଁ ଲେଖ |";
+            
             const message = `💖 ${urlSenderName} ପକ୍ଷରୁ ତୁମକୁ ରକ୍ଷା ବନ୍ଧନର ହାର୍ଦ୍ଦିକ ଶୁଭେଚ୍ଛା! 🎊`;
             resultDiv.innerText = message;
             resultDiv.classList.add("visible");
-
-            // Display "ତୁମର ନାଁ ଲେଖ" and input field for the new sender to use
-            const senderParagraph = document.querySelector('p');
-            senderParagraph.innerText = "ତୁମେ ବି ଶୁଭେଚ୍ଛା ପଠାଇବାକୁ ଚାହୁଁଛ? ତୁମର ନାଁ ଲେଖ |";
-            senderInput.style.display = 'block'; // Make it visible again for the new sender
-            generateButton.style.display = 'block'; // Make the button visible again
 
             // Unmute and play audio on page load if sender name is present
             const backgroundMusic = document.getElementById('backgroundMusic');
             backgroundMusic.muted = false;
             backgroundMusic.play();
 
-
-            // Prepare share buttons for the current page (without specific sender, allowing new sender to fill)
+            // Prepare share buttons for the current page (allowing new sender to fill)
             const shareDiv = document.getElementById("shareButtons");
             const pageUrl = window.location.origin + window.location.pathname; // Base URL
             
-            // The message for sharing will still be dynamic based on who is sharing
+            // The message for sharing will be generic, encouraging creation
             const currentMessage = `ରକ୍ଷା ବନ୍ଧନର ଶୁଭେଚ୍ଛା! ଏଠାରୁ ତୁମର ନିଜର ଶୁଭେଚ୍ଛା ସୃଷ୍ଟି କର: ${pageUrl}`;
 
             const whatsappURL = "https://wa.me/?text=" + encodeURIComponent(currentMessage);
@@ -245,7 +238,6 @@
             
             shareDiv.style.display = "block";
             setTimeout(() => shareDiv.classList.add("visible"), 10);
-
         }
     });
   </script>
