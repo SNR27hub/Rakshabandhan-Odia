@@ -88,7 +88,6 @@
     .share-buttons a:hover { transform: scale(1.2); }
     .share-buttons img { width: 45px; height: 45px; }
     
-    /* विज्ञापन कंटेनर स्टाइल */
     .ad-container {
         position: fixed;
         bottom: 0;
@@ -106,7 +105,6 @@
     .particle { position: fixed; bottom: -20px; opacity: 0; animation: rise 10s linear infinite; z-index: 1; }
     @keyframes rise { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; } }
     
-    /* Hidden audio element */
     #backgroundAudio {
       display: none;
     }
@@ -114,33 +112,29 @@
 </head>
 <body>
 
-  <!-- डेवलपर क्रेडिट -->
   <div class="developer-credit">
     <img src="developer-photo.jpg" alt="Developer">
     <span>Developer SNR</span>
   </div>
 
-  <!-- एनिमेशन के कणों के लिए कंटेनर -->
   <div id="particle-container"></div>
   
-  <!-- मुख्य कंटेंट -->
   <div class="container">
     <h1>🎀 ରକ୍ଷା ବନ୍ଧନ ଶୁଭେଚ୍ଛା 🎀</h1>
     <h2>Happy Rakshabandhan Greetings</h2>
     
     <p>ତୁମର ନାଁ ଲେଖ |<br>Enter your name:</p>
     <input type="text" id="senderName" placeholder="ନାମ / Name...">
+    
     <br>
     <button onclick="generateGreeting()">ଶୁଭେଚ୍ଛା ପଠାଅ / Send Greetings</button>
     <div class="greeting" id="result"></div>
     
-    <!-- Video Section (always playing) -->
     <video autoplay muted loop playsinline>
       <source src="rakhi-video.mp4" type="video/mp4">
       ଭିଡିଓ ଲୋଡ୍ ହେଉନି | Video not supported
     </video>
     
-    <!-- Hidden audio element (always playing) -->
     <audio id="backgroundAudio" autoplay loop>
       <source src="rakhi-song.mp3" type="audio/mpeg">
     </audio>
@@ -153,7 +147,6 @@
     </div>
   </div>
 
-  <!-- विज्ञापन कोड -->
   <div class="ad-container">
     <script type="text/javascript">
         atOptions = {
@@ -167,9 +160,7 @@
     <script type="text/javascript" src="//www.highperformanceformat.com/773726a76a11cd590edeaf4167fc2fa2/invoke.js"></script>
   </div>
 
-
   <script>
-    // Generate greeting function
     function generateGreeting() {
       const sender = document.getElementById('senderName').value.trim();
       if (sender === "") {
@@ -185,19 +176,29 @@
       
       const shareDiv = document.getElementById("shareButtons");
       const pageUrl = window.location.href;
-      const encodedMessage = encodeURIComponent(message + `\n\nCreate your own Rakhi wishes here: ${pageUrl}`);
-      const whatsappURL = "https://wa.me/?text=" + encodedMessage;
-      const facebookURL = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(pageUrl) + "&quote=" + encodeURIComponent(message);
+      const shareLink = `${pageUrl}?sender=${encodeURIComponent(sender)}`;
       
-      document.getElementById("whatsappBtn").href = whatsappURL;
-      document.getElementById("facebookBtn").href = facebookURL;
+      // Simplified WhatsApp message
+      const whatsappMessage = `ନିଜର ନାଁ ଲେଖି ଶୁଭେଚ୍ଛା ପାଇଁ ଏହି ଲିଙ୍କ୍ କ୍ଲିକ୍ କରନ୍ତୁ:\n${shareLink}`;
+      
+      document.getElementById("whatsappBtn").href = "https://wa.me/?text=" + encodeURIComponent(whatsappMessage);
+      document.getElementById("facebookBtn").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(shareLink);
       document.getElementById("instagramBtn").href = "https://www.instagram.com/";
       
       shareDiv.style.display = "block";
       setTimeout(() => shareDiv.classList.add("visible"), 10);
     }
 
-    // Particle animation
+    function checkUrlParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sender = urlParams.get('sender');
+      
+      if (sender) {
+        document.getElementById('senderName').value = sender;
+        generateGreeting();
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const particleContainer = document.getElementById('particle-container');
         const particleCount = 50;
@@ -214,31 +215,25 @@
             particleContainer.appendChild(particle);
         }
         
-        // Auto-play audio (with workaround for browser autoplay policies)
         const audio = document.getElementById('backgroundAudio');
-        
-        // Try to play audio (may be blocked by browser)
         const playAudio = () => {
-            audio.volume = 0.5; // Set default volume
+            audio.volume = 0.5;
             const promise = audio.play();
             
             if (promise !== undefined) {
                 promise.catch(error => {
-                    // Auto-play was prevented, show a message
                     console.log("Audio autoplay was prevented:", error);
                 });
             }
         };
         
-        // Try to play when user interacts with the page
         document.body.addEventListener('click', () => {
             playAudio();
         }, { once: true });
         
-        // Initial attempt to play
         playAudio();
+        checkUrlParams();
     });
   </script>
-
 </body>
 </html>
